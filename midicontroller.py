@@ -3,9 +3,9 @@ import mido
 from midinumpad import MidiNumpad,Toggler
 import web
 import urllib2
+from subprocess import call
 
-
-MODULES = ('numpad', 'web')
+MODULES = ('web')
 SERVERNAME = '0.0.0.0:5000'
 
 class Midihost(threading.Thread):
@@ -57,7 +57,9 @@ def main(args):
         web.start_web(command_q, SERVERNAME)
 
     mt.join()
-
+    #call("echo heartbeat | sudo tee /sys/class/leds/led1/trigger", shell=True)
+    #call("sudo shutdown -h now", shell=True)
+    
 if __name__ == '__main__':
     import sys
     main(sys.argv[1:])

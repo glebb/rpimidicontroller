@@ -27,9 +27,11 @@
 
 
 {% block script %}
+<!----><script src="{{ url_for('static', filename='jquery.ba-throttle-debounce.min.js') }}"></script> -->
 <script>
+var throttle = new Date();
 
-    $("#handle1").roundSlider({
+$("#handle1").roundSlider({
         min: 0,
         max: 127,
         radius: 80,
@@ -39,7 +41,7 @@
         editableTooltip: false,
         value: 50,
         startAngle: 315,
-        drag: "traceEventWrapper",
+        drag: "traceEvent",
         tooltipFormat: "tooltipLevel1"
     });
 
@@ -53,7 +55,7 @@
         editableTooltip: false,
         value: 50,
         startAngle: 315,
-        drag: "traceEventWrapper",
+        drag: "traceEvent",
         tooltipFormat: "tooltipLevel2"
 
     });
@@ -68,16 +70,20 @@
         editableTooltip: false,
         value: 50,
         startAngle: 315,
-        drag: "traceEventWrapper",
+        drag: "traceEvent",
         tooltipFormat: "tooltipLevel3"
 
     });
 
-    function traceEventWrapper(e) {
-        $.throttle(traceEvent(e), 1000);
-    }
+
 
     function traceEvent(e) {
+            var a = new Date();
+            temp = a-throttle;
+            if (temp < 100) {
+                return;
+            }
+            throttle = a;
             var url = "/ccset/" + e.id.match(/\d+/)[0] + "/" + e.value;
             $.ajax({
             url: url,

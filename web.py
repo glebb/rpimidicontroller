@@ -4,6 +4,7 @@ import time
 
 from midinumpad import Toggler
 
+global app
 app = Flask("midicontroller")
 
 @app.route('/cctoggle/<int:value>')
@@ -54,7 +55,8 @@ def shutdown_server():
         raise RuntimeError('Not running with the Werkzeug Server')
     func()
 
-def start_web(command_q, server):  
+def start_web(command_q, server):
+    global app
     app.config['command_q'] = command_q
     app.config['toggler'] = Toggler()
     app.config['SERVER_NAME'] = server
