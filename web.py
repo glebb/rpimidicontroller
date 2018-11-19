@@ -59,5 +59,4 @@ def start_web(command_q, server):
     global app
     app.config['command_q'] = command_q
     app.config['toggler'] = Toggler()
-    app.config['SERVER_NAME'] = server
-    app.run(debug=False)
+    app.run(host=server.split(':')[0], port=server.split(':')[1])
