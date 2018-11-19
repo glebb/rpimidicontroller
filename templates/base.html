@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json')}}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css')}}"/>    
+
+    <!-- Extra CSS-->
+    <link href="{{ url_for('static', filename='roundslider/roundslider.min.css') }}" rel="stylesheet" />
+
+    <title>RasPi Midicontroller!</title>
+
+    <style>
+.grid {
+    margin: 0 auto;
+    width: 70vw;
+    max-width: 40vh;
+    max-height: 60vh;
+    font-size: 2rem;
+}
+.row {
+    display: flex;
+}
+.box {
+    background: tomato;
+    margin: 15px;
+    color: white;
+    font-weight: bold;
+    flex: 1 0 auto;
+    position: relative;
+    border-radius: 20px;
+}
+.box:after {
+    content: "";
+    float:left;
+    display: block;
+    padding-top: 100%;
+}
+.box .inner {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+ .center {
+    text-align: center;
+    margin-top: 10px;
+}
+
+#message {
+
+    margin-top: 30px;    
+}
+    </style>
+  
+    {% block head %}{% endblock %}
+
+    </head>
+    <body>
+        {% block content %}
+        <div class="grid">
+            <div class="row">
+                <div class="box"><div class="inner btn btn-primary btn-lg">1</div></div>
+                <div class="box"><div class="inner btn btn-primary btn-lg">2</div></div>
+                <div class="box"><div class="inner btn btn-primary btn-lg">3</div></div>
+            </div>
+            <div class="row">
+                <div class="box"><div class="inner btn btn-primary btn-lg">4</div></div>
+                <div class="box"><div class="inner btn btn-primary btn-lg">5</div></div>
+                <div class="box"><div class="inner btn btn-primary btn-lg">6</div></div>
+            </div>
+            <div class="row">
+                <div class="box"><div class="inner btn btn-primary btn-lg">7</div></div>
+                <div class="box"><div class="inner btn btn-primary btn-lg">8</div></div>
+                <div class="box"><div class="inner btn btn-primary btn-lg">9</div></div>
+            </div>
+            <div class="row">
+                <div class="box"><div class="inner btn btn-primary btn-lg">10</div></div>
+                <div class="box"><div class="inner btn btn-primary btn-lg">11</div></div>
+                <div class="box"><div class="inner btn btn-primary btn-lg">12</div></div>
+            </div>
+    
+        </div>
+        {% endblock %}
+        <div class="center d-none" id="message">message</div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{{ url_for('static', filename='jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='popper.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='roundslider/roundslider.min.js') }}"></script> 
+
+    {% block script %}{% endblock %}
+
+    </body>
+</html>

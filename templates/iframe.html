@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en" class="h-100">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.json')}}">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css')}}" />
+
+  <title>RasPi Midicontroller!</title>
+
+  <style>
+    html,
+    body {
+      overflow: hidden
+    }
+
+    .center {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    iframe {
+      margin: 10px;
+      padding: 10px;
+    }
+
+    a {
+      display: inline-block;
+      margin-left: 0.5em;
+      margin-right: 0.5em;
+
+    }
+  </style>
+</head>
+
+<body>
+  <section class="center">
+    <a href="/pc" class="btn btn-outline-secondary active">PRG CHNG</a> <a href="/cc" class="btn btn-outline-secondary">CC</a>
+    <a href="/cclevel" class="btn btn-outline-secondary">CC LEVEL</a>
+  </section>
+  <hr>
+
+  <iframe id="iframe" src="/pc" style="position:fixed; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">Your
+    browser doesn't support iFrames.</iframe>
+
+  <script src="{{ url_for('static', filename='jquery-3.3.1.min.js') }}"></script>
+
+  <script>
+    $(function () {
+      $("a").click(function () {
+        $('a').removeClass('active');
+        var original_url = this.href;
+        $('#iframe').prop('src', original_url);
+        $(this).addClass('active');
+        return false;
+      });
+    });
+  </script>
+</body>
+
+</html>
