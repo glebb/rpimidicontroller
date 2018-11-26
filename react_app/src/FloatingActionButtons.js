@@ -41,12 +41,12 @@ const modeStyle = {
   position: 'fixed',
 };
 
-const quitStyle = {
+const expStyle = {
   margin: 0,
-  top: 1,
+  top: 'auto',
+  right: 100,
+  bottom: 20,
   left: 'auto',
-  bottom: 'auto',
-  right: 1,
   position: 'fixed',
 };
 
@@ -62,8 +62,8 @@ function FloatingActionButtons(props) {
   function handleNextModeClick(value) {
     fetch('/ccset/71/4') 
   }
-  function handleQuitClick(value) {
-    fetch('/quit') 
+  function handleExpClick(value) {
+    fetch('/cctoggle/53') 
   }
 
 
@@ -78,6 +78,9 @@ function FloatingActionButtons(props) {
       </Button>
       <Button variant="fab" style={modeStyle} color="primary" className={classes.button} onClick={() => handleNextModeClick(1)}>
         Mode
+      </Button>
+      <Button variant="fab" style={expStyle} color="primary" className={classes.button} onClick={handleExpClick}>
+        EXP1/2
       </Button>
       <QuiteButton />
 
