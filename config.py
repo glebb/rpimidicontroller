@@ -9,6 +9,7 @@ class BaseConfig:
     NUMPAD_KILLSIGNAL = "987" #trigger always 0
     NUMPAD_PREVSCANCODE = 82
     NUMPAD_NEXTSCANCODE = 76
+    MIDIOUT = 'HX Stomp'
 
     @staticmethod
     def shutdown():
@@ -19,6 +20,7 @@ class Linux(BaseConfig):
     NUMPAD_MODE_CHANGE_SCANCODES = (69,98,55) # numlock / *
     NUMPAD_PREVSCANCODE = 82
     NUMPAD_NEXTSCANCODE = 76
+    MIDIOUT = 'HX Stomp:HX Stomp MIDI 1 20:0'
 
     @staticmethod
     def shutdown():
