@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, send_from_directory
 import mido
 import time
 import threading, Queue
@@ -8,7 +8,7 @@ from config import Config
 
 
 global app
-app = Flask("midicontroller")
+app = Flask(__name__, static_folder='react_app/build/static')
 
 @app.route('/cctoggle/<int:value>')
 def control_toggle(value):
@@ -29,28 +29,22 @@ def control_set(value, data):
     app.config['command_q'].put(message)
     return str(message)
 
-
 @app.route('/quit/')
 def quit():
     app.config['command_q'].put("KILLSIGNAL")
     shutdown_server()
     return "QUIT"
 
-@app.route('/')
-def iframe():
-    return render_template('iframe.html')
+# Serve React App
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve(path):
+    if path != "" and os.path.exists("react_app/build/" + path):
+        return send_from_directory('react_app/build', path)
+    else:
+        return send_from_directory('react_app/build', 'index.html')
 
-@app.route('/pc')
-def pc():
-    return render_template('pc.html')
 
-@app.route('/cc')
-def cc():
-    return render_template('cc.html')
-
-@app.route('/cclevel')
-def cclevel():
-    return render_template('level.html')
 
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')

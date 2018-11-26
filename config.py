@@ -3,6 +3,7 @@ import platform
 class BaseConfig:
     MODULES = ('web', 'numpad')
     SERVERNAME = '0.0.0.0:5000'
+    MIDICHANNEL = 1
     
     @staticmethod
     def shutdown():
