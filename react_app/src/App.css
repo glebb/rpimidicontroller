@@ -9,3 +9,8 @@
   justify-content: center;
   touch-action: none;
 }
+
+body {
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+}

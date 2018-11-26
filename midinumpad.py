@@ -3,6 +3,7 @@ from subprocess import call
 from itertools import cycle
 import threading, Queue
 import keyboard
+from config import Config
 
 class Toggler(object):
     items = {}
@@ -35,7 +36,7 @@ class MidiNumpad():
 
     def start(self):
         keyboard.on_press(self.receive_message)
-        keyboard.add_word_listener('987', self.stop_signal, triggers=['0'], match_suffix=True, timeout=2)
+        keyboard.add_word_listener(Config.NUMPAD_KILLSIGNAL, self.stop_signal, triggers=['0'], match_suffix=True, timeout=2)
 
     def _send_message(self, message):
         self.command_q.put(message)
@@ -57,10 +58,8 @@ class MidiNumpad():
     def _adjust_event_value(self, event):
         try:
             value = int(event.name)
-            if value == 0:
-                value += 1
         except ValueError:
-            if event.scan_code == 96 or event.name == ',': # switching with a toe, not so accurate
+            if event.scan_code == Config.NUMPAD_NEXTSCANCODE:
                 value=2
             else:
                 value = None

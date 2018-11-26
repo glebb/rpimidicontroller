@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import QuiteButton from './QuitButton'
 
 const styles = theme => ({
   button: {
@@ -40,6 +41,16 @@ const modeStyle = {
   position: 'fixed',
 };
 
+const quitStyle = {
+  margin: 0,
+  top: 1,
+  left: 'auto',
+  bottom: 'auto',
+  right: 1,
+  position: 'fixed',
+};
+
+
 function FloatingActionButtons(props) {
   const { classes } = props;
   function handleTapClick(value) {
@@ -51,6 +62,10 @@ function FloatingActionButtons(props) {
   function handleNextModeClick(value) {
     fetch('/ccset/71/4') 
   }
+  function handleQuitClick(value) {
+    fetch('/quit') 
+  }
+
 
 
   return (
@@ -64,6 +79,7 @@ function FloatingActionButtons(props) {
       <Button variant="fab" style={modeStyle} color="primary" className={classes.button} onClick={() => handleNextModeClick(1)}>
         Mode
       </Button>
+      <QuiteButton />
 
     </div>
   );

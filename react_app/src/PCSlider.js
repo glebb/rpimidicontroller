@@ -45,8 +45,8 @@ class PCSlider extends React.Component {
           classes={{ container: classes.slider }}
           value={this.props.globalState}
           aria-labelledby="label"
-          max={126}
-          min={1}
+          max={125}
+          min={0}
           step={1}
           onChange={this.handleChange}
           onDragEnd={this.handleDragEnd}

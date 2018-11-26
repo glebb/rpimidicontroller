@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/lab/Slider';
 
+
 const styles = {
   root: {
     position: 'relative',
@@ -17,7 +18,7 @@ const styles = {
 
 class SimpleSlider extends React.Component {
   state = {
-    value: 50,
+    value: this.props.position,
   };
 
   cc = "0";

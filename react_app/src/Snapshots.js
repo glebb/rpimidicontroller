@@ -39,13 +39,13 @@ render() {
       <Button variant="contained" color="default"  size="medium"  style={buttonStyle} className={this.classes.button}onClick={(e) => this.handleClick(2)}>
         3
       </Button>
-      <br/>
+      {/*<br/>
       <Button variant="outlined" color="default" style={buttonStyle} className={this.classes.button}onClick={(e) => this.handleClick(9)}>
         Previous
       </Button>
       <Button variant="outlined" color="default" style={buttonStyle} className={this.classes.button}onClick={(e) => this.handleClick(8)}>
         Next
-      </Button>
+      </Button> */}
       </p>
     </div>
   );

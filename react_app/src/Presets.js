@@ -7,7 +7,7 @@ import PCSlider from './PCSlider'
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
-    color: 'white'
+
   },
   input: {
     display: 'none',
@@ -29,8 +29,8 @@ function PresetButtons(props) {
 
     }
 
-    if (temp < 1) temp = 126;
-    if (temp > 126) temp = 1;
+    if (temp < 0) temp = 125;
+    if (temp > 125) temp = 0;
 
 
     fetch('/pcset/'+temp);
@@ -41,7 +41,7 @@ function PresetButtons(props) {
   return (
     <div>
         <p>
-      <Button variant="contained" color="secondary" size="medium" className={classes.button} onClick={() => handleClick(1)}>
+      {/*<Button variant="contained" color="secondary" size="medium" className={classes.button} onClick={() => handleClick(1)}>
         1
       </Button>
       <Button variant="contained" color="secondary"   size="medium" className={classes.button} onClick={() => handleClick(2)}>
@@ -59,11 +59,11 @@ function PresetButtons(props) {
       <Button variant="contained" color="secondary"  size="medium"  className={classes.button} onClick={() => handleClick(6)}>
         6
       </Button>
-      <br/>
-      <Button variant="outlined" color="primary"  size="medium"  className={classes.button} onClick={() => handleClick(200)}>
+  <br/> */}
+      <Button variant="contained" color="default"  size="medium"  className={classes.button} onClick={() => handleClick(200)}>
         Previous
       </Button>
-      <Button variant="outlined" color="primary"  size="medium"  className={classes.button} onClick={() => handleClick(300)}>
+      <Button variant="contained" color="default"  size="medium"  className={classes.button} onClick={() => handleClick(300)}>
         Next
       </Button>
 

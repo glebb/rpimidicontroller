@@ -9,7 +9,7 @@ import FloatingActionButtons from "./FloatingActionButtons"
 import SnapshotButtons from './Snapshots'
 import PresetButtons from './Presets'
 import SimpleSlider from './ParamSliders'
-import Blocks from './Blocks'
+import Blocks from './FootSwitches'
 
 function TabContainer(props) {
   return (
@@ -65,8 +65,8 @@ class FullWidthTabs extends React.Component {
             onChange={this.handleChange}
             fullWidth
           >
-            <Tab label="Switch" />
-            <Tab label="Blocks" />
+            <Tab label="Main" />
+            <Tab label="FS" />
             <Tab label="Params" />
           </Tabs>
         </AppBar>
@@ -79,10 +79,16 @@ class FullWidthTabs extends React.Component {
           <AppBar position="static" color="default">
           Preset Quick Dial
           </AppBar>
-          <PresetButtons globalStateHandler={this.props.globalStateHandler} globalState={this.props.globalState}/>
+          <PresetButtons globalStateHandler={this.props.globalStateHandler} globalState={this.props.globalState}/><br/>
+          <AppBar position="static" color="default">
+          Expression Pedals
+          </AppBar>
+          <SimpleSlider name="EXP 1" cc="1" position="127"/>
+          <SimpleSlider name="EXP 2" cc="2" position="0"/>
+
           </TabContainer>}
           {value === 1 && <TabContainer dir={theme.direction}><AppBar position="static" color="default">
-          Toggle blocks
+          Footswitches
           </AppBar>
           <Blocks/>
           </TabContainer>}

@@ -1,14 +1,13 @@
 import threading, Queue
 import mido
 import urllib2
-from subprocess import call
 from config import Config
 class Midihost(threading.Thread):
     def __init__(self, command_q):
         super(Midihost, self).__init__()
         self.command_q = command_q
         self.stoprequest = threading.Event()
-        self.outputport = mido.open_output()
+        self.outputport = mido.open_output('HX Stomp')
 
     def send_message(self, received_message):
         self.outputport.send(received_message)
@@ -35,3 +34,7 @@ class Midihost(threading.Thread):
 
     def join(self, timeout=None):
         super(Midihost, self).join(timeout)    
+
+if __name__ == '__main__':
+    print mido.get_input_names()
+    print mido.get_output_names()
