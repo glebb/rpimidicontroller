@@ -8,7 +8,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-build/
+/build/
 develop-eggs/
 dist/
 downloads/
@@ -116,7 +116,7 @@ react_app/.pnp
 react_app/coverage
 
 # production
-react_app/build
+# react_app/build
 
 # misc
 .DS_Store

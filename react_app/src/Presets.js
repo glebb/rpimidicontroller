@@ -29,8 +29,8 @@ function PresetButtons(props) {
 
     }
 
-    if (temp < 0) temp = 125;
-    if (temp > 125) temp = 0;
+    if (temp < 1) temp = 126;
+    if (temp > 126) temp = 1;
 
 
     fetch('/pcset/'+temp);

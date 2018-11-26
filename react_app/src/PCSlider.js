@@ -16,13 +16,23 @@ const styles = {
 };
 
 class PCSlider extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: null,
+      rep: ""
+    }
+  }
   handleChange = (event, value) => {
-    this.props.globalStateHandler(value)
+    this.setState({value: value, rep: "("+value+")"});
+    //this.props.globalStateHandler(value)
   };
 
-  handleDragEnd = (event, value) => {
-    const url = "/pcset/"+this.props.globalState;
+  handleDragEnd = () => {
+    this.props.globalStateHandler(this.state.value);
+    const url = "/pcset/"+this.state.value;
     fetch(url);
+    this.setState({value: null, rep: ""});
   };  
 
   render() {
@@ -30,17 +40,18 @@ class PCSlider extends React.Component {
 
     return (
       <div className={classes.root}>
+      
         <Slider
           classes={{ container: classes.slider }}
           value={this.props.globalState}
           aria-labelledby="label"
-          max={127}
-          min={0}
+          max={126}
+          min={1}
           step={1}
           onChange={this.handleChange}
           onDragEnd={this.handleDragEnd}
         /> 
-        <Typography id="label"> {this.props.globalState} </Typography>
+        <Typography id="label"> {this.props.globalState} {this.state.rep}</Typography>
 
       </div>
     );

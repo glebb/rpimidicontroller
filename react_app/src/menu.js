@@ -72,12 +72,12 @@ class FullWidthTabs extends React.Component {
         </AppBar>
           {value === 0 && <TabContainer dir={theme.direction}>
           <AppBar position="static" color="default">
-          Snapshots
+          Snapshots for current preset
           </AppBar>
           <SnapshotButtons/>
 
           <AppBar position="static" color="default">
-          Presets
+          Preset Quick Dial
           </AppBar>
           <PresetButtons globalStateHandler={this.props.globalStateHandler} globalState={this.props.globalState}/>
           </TabContainer>}

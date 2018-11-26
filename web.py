@@ -5,6 +5,7 @@ import threading, Queue
 from midinumpad import Toggler, MidiNumpad
 from midicontroller import Midihost
 from config import Config
+import os
 
 
 global app
@@ -13,19 +14,19 @@ app = Flask(__name__, static_folder='react_app/build/static')
 @app.route('/cctoggle/<int:value>')
 def control_toggle(value):
     toggled = app.config['toggler'].switch(str(value))
-    message = mido.Message('control_change', control=value, value=toggled)
+    message = mido.Message('control_change', channel=Config.MIDICHANNEL-1, control=value-1, value=toggled)
     app.config['command_q'].put(message)
     return str(message)
 
 @app.route('/pcset/<int:value>')
 def program_change(value):
-    message = mido.Message('program_change', program=value)
+    message = mido.Message('program_change', channel=Config.MIDICHANNEL-1, program=value-1)
     app.config['command_q'].put(message)
     return str(message)
 
 @app.route('/ccset/<int:value>/<int:data>')
 def control_set(value, data):
-    message = mido.Message('control_change', control=value, value=data)
+    message = mido.Message('control_change', channel=Config.MIDICHANNEL-1, control=value-1, value=data)
     app.config['command_q'].put(message)
     return str(message)
 
