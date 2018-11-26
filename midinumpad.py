@@ -15,31 +15,27 @@ class Toggler(object):
         return self.to_number_value(self.items[item])
 
     def to_number_value(self, item):
-        return int(item)
+        if item:
+            return 127
+        else:
+            return 0
 
-class MidiNumpad(threading.Thread):
+class MidiNumpad():
     def __init__(self, command_q):
-        super(MidiNumpad, self).__init__()
         self.command_q = command_q
         self.toggler = Toggler()
         self.modes = cycle(('PC', 'CC', 'LEVEL'))
         self.mode = next(self.modes)
         self.memory = {}
         self.last = None
-        self.stoprequest = threading.Event()
-
         
     def stop_signal(self):
         keyboard.unhook_all()
         self.command_q.put("KILLSIGNAL")
-        self.stoprequest.set()
 
-    def run(self):
+    def start(self):
         keyboard.on_press(self.receive_message)
-        keyboard.add_word_listener('987654321', self.stop_signal, triggers=['0'], match_suffix=False, timeout=3)
-
-    def join(self, timeout=None):
-        super(MidiNumpad, self).join(timeout)
+        keyboard.add_word_listener('987', self.stop_signal, triggers=['0'], match_suffix=True, timeout=2)
 
     def _send_message(self, message):
         self.command_q.put(message)
@@ -113,4 +109,5 @@ if __name__ == '__main__':
     print 'prints out key name and scan code'
     recorded = keyboard.record(until='esc')
     for keypress in recorded:
+        
         print keypress.name + " " + str(keypress.scan_code)         

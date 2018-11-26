@@ -1,8 +1,11 @@
 from flask import Flask, request, render_template
 import mido
 import time
+import threading, Queue
+from midinumpad import Toggler, MidiNumpad
+from midicontroller import Midihost
+from config import Config
 
-from midinumpad import Toggler
 
 global app
 app = Flask("midicontroller")
@@ -25,6 +28,7 @@ def control_set(value, data):
     message = mido.Message('control_change', control=value, value=data)
     app.config['command_q'].put(message)
     return str(message)
+
 
 @app.route('/quit/')
 def quit():
@@ -49,14 +53,27 @@ def cclevel():
     return render_template('level.html')
 
 def shutdown_server():
-
     func = request.environ.get('werkzeug.server.shutdown')
     if func is None:
         raise RuntimeError('Not running with the Werkzeug Server')
     func()
 
-def start_web(command_q, server):
+def start_midicontroller():
     global app
+    command_q = Queue.Queue()
+
+    mt = Midihost(command_q = command_q)
+    mt.start()
+
+    if 'numpad' in Config.MODULES:
+        numpad = MidiNumpad(command_q)
+        numpad.start()
+
     app.config['command_q'] = command_q
     app.config['toggler'] = Toggler()
-    app.run(host=server.split(':')[0], port=server.split(':')[1])
+    app.run(host=Config.SERVERNAME.split(':')[0], port=Config.SERVERNAME.split(':')[1])
+    Config.shutdown()
+
+
+if __name__ == '__main__':
+    start_midicontroller()

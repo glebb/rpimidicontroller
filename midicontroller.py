@@ -1,13 +1,8 @@
 import threading, Queue
 import mido
-from midinumpad import MidiNumpad,Toggler
-import web
 import urllib2
 from subprocess import call
-
-MODULES = ('web')
-SERVERNAME = '0.0.0.0:5000'
-
+from config import Config
 class Midihost(threading.Thread):
     def __init__(self, command_q):
         super(Midihost, self).__init__()
@@ -27,12 +22,11 @@ class Midihost(threading.Thread):
                 message = self.command_q.get(True, 0.05)
                 print message
                 if str(message) == "KILLSIGNAL":
-                    if 'web' in MODULES:
-                        url = "http://"+SERVERNAME+"/quit"
-                        try:
-                            content = urllib2.urlopen(url).read()
-                        except:
-                            pass
+                    url = "http://"+Config.SERVERNAME+"/quit"
+                    try:
+                        content = urllib2.urlopen(url).read()
+                    except:
+                        pass
                     self.stoprequest.set()
                 else:
                     self.send_message(message)
@@ -40,26 +34,4 @@ class Midihost(threading.Thread):
                 continue
 
     def join(self, timeout=None):
-        super(Midihost, self).join(timeout)
-
-
-def main(args):
-    command_q = Queue.Queue()
-
-    mt = Midihost(command_q = command_q)
-    mt.start()
-
-    if 'numpad' in MODULES:
-        numpad = MidiNumpad(command_q)
-        numpad.start()
-
-    if 'web' in MODULES:
-        web.start_web(command_q, SERVERNAME)
-
-    mt.join()
-    #call("echo heartbeat | sudo tee /sys/class/leds/led1/trigger", shell=True)
-    #call("sudo shutdown -h now", shell=True)
-    
-if __name__ == '__main__':
-    import sys
-    main(sys.argv[1:])
+        super(Midihost, self).join(timeout)    
