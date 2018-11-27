@@ -1,7 +1,6 @@
 import threading, Queue
 import mido
 import urllib2
-import polling
 import time
 from config import Config
 
