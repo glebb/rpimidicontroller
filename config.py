@@ -10,6 +10,7 @@ class BaseConfig:
     NUMPAD_PREVSCANCODE = 82
     NUMPAD_NEXTSCANCODE = 76
     MIDIOUT = 'HX Stomp'
+    MIDIIN = 'LPD 8'
 
     @staticmethod
     def shutdown():
