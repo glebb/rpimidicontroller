@@ -8,7 +8,6 @@ from config import Config
 import os
 import sys
 
-
 global app
 app = Flask(__name__, static_folder='react_app/build/static')
 
@@ -69,9 +68,10 @@ def start_midicontroller():
 
     app.config['command_q'] = command_q
     app.config['toggler'] = Toggler()
+
     app.run(host=Config.SERVERNAME.split(':')[0], port=Config.SERVERNAME.split(':')[1])
+    mt.join()
     Config.shutdown()
-    print "wassup?"
     sys.exit()
 
 
