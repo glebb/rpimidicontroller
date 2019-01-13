@@ -2,26 +2,29 @@ import platform
 from subprocess import call
 
 class BaseConfig:
-    MODULES = ('web')
-    SERVERNAME = '0.0.0.0:5000'
+    MIDIOUT = ''
+    MIDIIN = 'LPD'
+    MODULES = ('')
     MIDICHANNEL = 1
     NUMPAD_MODE_CHANGE_SCANCODES = (69,98,55)
     NUMPAD_KILLSIGNAL = "987" #trigger always 0
     NUMPAD_PREVSCANCODE = 82
     NUMPAD_NEXTSCANCODE = 76
-    MIDIOUT = ''
-    MIDIIN = 'LPD 8'
 
     @staticmethod
     def shutdown():
-        pass
+        print 'shutdown...'
+
+    @staticmethod
+    def reboot():
+        print 'reboot...'
+
 
 class Linux(BaseConfig):
-    SERVERNAME = '0.0.0.0:80'
+    MIDIOUT = 'Stomp'
     NUMPAD_MODE_CHANGE_SCANCODES = (69,98,55) # numlock / *
     NUMPAD_PREVSCANCODE = 82
     NUMPAD_NEXTSCANCODE = 76
-    #MIDIOUT = 'HX Stomp'
 
     @staticmethod
     def shutdown():
@@ -29,14 +32,15 @@ class Linux(BaseConfig):
         call("echo heartbeat | sudo tee /sys/class/leds/led1/trigger", shell=True)
         call("sudo shutdown -h now", shell=True)
 
+    @staticmethod
+    def reboot():
+        call("echo heartbeat | sudo tee /sys/class/leds/led0/trigger", shell=True)
+        call("echo heartbeat | sudo tee /sys/class/leds/led1/trigger", shell=True)
+        call("sudo shutdown -r now", shell=True)
 
 class Darwin(BaseConfig):
-    MODULES = ('web')
     NUMPAD_MODE_CHANGE_SCANCODES = (65,75,67) # , / *
-    @staticmethod
-    def shutdown():
-        print "quitting"
-    pass
+    MIDIOUT = 'IAC-ajuri'
 
 class Windows(BaseConfig):
     pass

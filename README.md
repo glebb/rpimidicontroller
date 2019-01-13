@@ -1,15 +1,8 @@
 ## TODO ##
-- Video
 - Preset slider fix
-- Receive preset change
-- Save state (redux?)
-- Test exp1 + exp2 functionality
 - Set up some param effects
 - Configure LPD8
 - Configure numpad
 - Write documentation about setup
-- Scrollable tabs
-- Settings tab (shutdown, restart, reboot)
-- Save state between sessions (local storage?)
-- Linux dbus check for connecting usb
-- Create rpi image
+- Linux dbus check for connecting usb?
+- Create rpi image?
