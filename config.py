@@ -1,4 +1,5 @@
 import platform
+import sys
 from subprocess import call
 
 class BaseConfig:
@@ -21,7 +22,7 @@ class BaseConfig:
 
 
 class Linux(BaseConfig):
-    MIDIOUT = 'Stomp'
+    MIDIOUT = 'md-bt'
     NUMPAD_MODE_CHANGE_SCANCODES = (69,98,55) # numlock / *
     NUMPAD_PREVSCANCODE = 82
     NUMPAD_NEXTSCANCODE = 76
@@ -40,7 +41,12 @@ class Linux(BaseConfig):
 
 class Darwin(BaseConfig):
     NUMPAD_MODE_CHANGE_SCANCODES = (65,75,67) # , / *
-    MIDIOUT = 'IAC-ajuri'
+    MIDIOUT = 'Stomp'
+
+    @staticmethod
+    def shutdown():
+        sys.exit()
+
 
 class Windows(BaseConfig):
     pass

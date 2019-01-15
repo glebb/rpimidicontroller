@@ -70,10 +70,10 @@ class Midihost(threading.Thread):
             os.execv(__file__, sys.argv)
             sys.exit()
         if command == "scroll_preset_up":
-            self.callback("/control_change/71", values)
-            self.callback("/control_change/51", values)
+            self.callback("/control_change/71", "1.0")
+            self.callback("/control_change/50", values)
         if command == "scroll_preset_down":
-            self.callback("/control_change/71", values)
+            self.callback("/control_change/71", "1.0")
             self.callback("/control_change/49", values)
 
         if message:
