@@ -20,6 +20,13 @@ class BaseConfig:
     def reboot():
         print 'reboot...'
 
+    @staticmethod
+    def restart(filename):
+        print 'restart...'
+        os.execv(__file__, sys.argv)
+        sys.exit()
+
+
 
 class Linux(BaseConfig):
     MIDIOUT = 'md-bt'
@@ -38,6 +45,14 @@ class Linux(BaseConfig):
         call("echo heartbeat | sudo tee /sys/class/leds/led0/trigger", shell=True)
         call("echo heartbeat | sudo tee /sys/class/leds/led1/trigger", shell=True)
         call("sudo shutdown -r now", shell=True)
+
+    @staticmethod
+    def restart(filename):
+        print 'restart...'
+        call("sudo service bluetooth restart", shell=True)
+        os.execv(__file__, sys.argv)
+        sys.exit()
+
 
 class Darwin(BaseConfig):
     NUMPAD_MODE_CHANGE_SCANCODES = (65,75,67) # , / *

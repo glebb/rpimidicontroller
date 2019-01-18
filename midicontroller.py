@@ -64,11 +64,7 @@ class Midihost(threading.Thread):
             self.command_q.put("REBOOTSIGNAL")
         if command == "restart":
             self.stop()
-            print "Restarting..."
-            print ""
-
-            os.execv(__file__, sys.argv)
-            sys.exit()
+            Config.restart(__file__)
         if command == "scroll_preset_up":
             self.callback("/control_change/71", "1.0")
             self.callback("/control_change/50", values)
