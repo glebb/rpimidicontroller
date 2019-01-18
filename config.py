@@ -24,7 +24,7 @@ class BaseConfig:
     @staticmethod
     def restart(filename):
         print 'restart...'
-        os.execv(__file__, sys.argv)
+        os.execv(filename, sys.argv)
         sys.exit()
 
 
@@ -51,7 +51,7 @@ class Linux(BaseConfig):
     def restart(filename):
         print 'restart...'
         call("sudo service bluetooth restart", shell=True)
-        os.execv(__file__, sys.argv)
+        os.execv(filename, sys.argv)
         sys.exit()
 
 
